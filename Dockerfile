@@ -1,4 +1,6 @@
 
+# Build via:
+#   docker build -t my/fluentd-logzio:latest .
 
 FROM ruby:2.2.7-alpine
 RUN apk add --update \
