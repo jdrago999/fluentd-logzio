@@ -1,20 +1,19 @@
 
-# fluentd-logzio
+# jdrago999/fluentd-logzio
 
 ## Usage
 
 ```bash
-docker build -t my/fluentd-logzio:latest .
 docker run \
   --name=fluentd-logzio \
-  -e LOGZIO_TOKEN=XXXXXXXXXXXXX \
+  -e LOGZIO_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXX \
   --net=host \
   --restart=always \
   -d \
-  my/fluentd-logzio:latest
+  jdrago999/fluentd-logzio:latest
 ```
 
-Then, in your `docker-compose.yml`:
+Or, in your `docker-compose.yml`:
 
 ```yaml
 ...
@@ -24,6 +23,16 @@ Then, in your `docker-compose.yml`:
       driver: fluentd
       options:
         fluentd-address: "localhost:24224"
+    depends_on:
+      - fluentd
+...
+  fluentd:
+    image: jdrago999/fluentd-logzio:latest
+    network_mode: host
+    environment:
+      - LOGZIO_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXX
+    ports:
+      - 24284
 ...
 ```
 
